@@ -1,0 +1,37 @@
+[
+    {
+        "categoria": "Conociendo a Natalia",
+        "pregunta": "Siempre cumplo con los plazos, me comprometo con el éxito del equipo.",
+        "respuesta": "Compromiso",
+        "incorrecta1": "Orientacion Estratégica",
+        "incorrecta2": "Trabajo en equipo"
+    },
+    {
+        "categoria": "Conociendo a Natalia",
+        "pregunta": "Admito mis errores, soy transparente en la comunicación.",
+        "respuesta": "Honestidad",
+        "incorrecta1": "Búsqueda de la excelencia",
+        "incorrecta2": "Escucha activa"
+    },
+    {
+        "categoria": "Conociendo a Natalia",
+        "pregunta": "Colaboro efectivamente con mi equipo, celebro los éxitos del equipo.",
+        "respuesta": "Trabajo en equipo",
+        "incorrecta1": "De perfil colaborativo",
+        "incorrecta2": "Innovación"
+    },
+    {
+        "categoria": "Conociendo a Natalia",
+        "pregunta": "Fomento nuevas ideas, busco soluciones creativas.",
+        "respuesta": "Innovación",
+        "incorrecta1": "Creatividad",
+        "incorrecta2": "Orientacion Estratégica"
+    },
+    {
+        "categoria": "Conociendo a Natalia",
+        "pregunta": "Busco constantemente la mejora, me esfuerzo por superar expectativas.",
+        "respuesta": "Búsqueda de la excelencia",
+        "incorrecta1": "Innovación",
+        "incorrecta2": "Escucha activa"
+    }
+]

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Mi Curriculum"</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <div class="menu-container">
+            <div class="brand">
+                    <h2>N<span>T</span></h2>
+            </div>                
+            <div class="menu"> 
+                <div class="back_menu"></div>
+                <nav>
+                    <input class="checkbox" type="checkbox" id="menuBurger">
+                    <img src="/imagenes/sanguchito.png" class= "burger-icono" alt="">
+                    
+                    <ul class="listaMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sobreMi.html">Sobre mi</a></li>
+                        <li><a href="educacion.html">Educación</a></li>
+                        <li><a href="experiencia.html">Experiencia</a></li>
+                        <li><a href="contactame.html">Contactame</a></li>
+                    </ul>
+                </nav>
+            </div>                
+        </div>
+    </header>
+    <style>
+        *{
+            transition: all 0.5s;
+        }
+        body{
+            background-color: #191c32;
+            padding: 0;
+            margin: 0;
+            text-align:center;
+            font-size: 120%;
+        }
+        .contenedor{
+            width: 98vw;
+            height: 97vh;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .contenedor h4{
+            color:#fff;
+
+        }
+        .encabezado{
+            background-color: #191c32;
+            color:#fff;
+            min-width: 300px;
+            width: 70%;
+            max-width: 600px;
+        }
+
+        .categoria{
+            opacity: 0.3;
+            text-align: left;
+        
+        }
+        .pregunta{
+            padding:10px;
+
+        }
+        
+        .btn{
+            background-color: #ffffff9b;
+            width: 60%;
+            padding: 10px;
+            margin:5px;
+            max-width: 550px;
+    
+        }
+        
+        .btn:hover{
+            background: linear-gradient(to right, #7DD1A7, #191c32);
+            cursor: pointer;
+            transform: scale(1.05);
+
+        }
+    </style>
+    <div class="contenedor">
+        <h4>Seleccioná la opción correcta teniendo en cuenta la habilidad descripta</h4>
+        <br></br>
+        <div class="encabezado">
+            <div class="categoria" id="categoria">
+                Categoria
+            </div>
+            <div class="pregunta" id="pregunta">
+                Pregunta
+            </div>
+            <div id="numero"></div>
+            <div id="puntaje"></div>
+        </div>
+
+        <div class="btn" id="btn1" onclick="oprimir_btn(0)">
+            Opcion 1
+        </div>
+        <div class="btn" id="btn2" onclick="oprimir_btn(1)">
+            Opcion 2
+        </div>
+        <div class="btn" id="btn3" onclick="oprimir_btn(2)">
+            Opcion 3
+        </div>
+    </div>
+
+    <script>
+        // Utilizamos una función asíncrona para cargar el archivo JSON de manera asíncrona
+        async function cargarPreguntas() {
+            try {
+                let response = await fetch("base-preguntas.json");
+                let data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error al cargar el archivo JSON:", error);
+                return null;
+            }
+        }
+
+        let interprete_bp;
+        let pregunta;
+        let posibles_respuestas;
+        let btn_correspondiente = [
+            select_id("btn1"),
+            select_id("btn2"),
+            select_id("btn3")
+        ];
+
+        // Llamamos a la función asíncrona y trabajamos con el resultado
+        cargarPreguntas().then(data => {
+            interprete_bp = data;
+
+            // Llama a la función para cargar una pregunta aleatoria al cargar la página
+            escogerPreguntaAleatoria();
+        });
+
+        function escogerPreguntaAleatoria() {
+            let indiceAleatorio = Math.floor(Math.random() * interprete_bp.length);
+            escogerPregunta(indiceAleatorio);
+        }
+
+        function escogerPregunta(n) {
+            pregunta = interprete_bp[n];
+            select_id("categoria").innerHTML = pregunta.categoria;
+            select_id("pregunta").innerHTML = pregunta.pregunta;
+            desordenarRespuestas(pregunta);
+        }
+
+        function desordenarRespuestas(pregunta) {
+            posibles_respuestas = [
+                pregunta.respuesta,
+                pregunta.incorrecta1,
+                pregunta.incorrecta2
+            ];
+            posibles_respuestas.sort(() => Math.random() - 0.5);
+
+            select_id("btn1").innerHTML = posibles_respuestas[0];
+            select_id("btn2").innerHTML = posibles_respuestas[1];
+            select_id("btn3").innerHTML = posibles_respuestas[2];
+        }
+
+        function oprimir_btn(i) {
+            if (posibles_respuestas[i] === pregunta.respuesta) {
+                btn_correspondiente[i].style.background = "lightgreen";
+            } else {
+                btn_correspondiente[i].style.background = "pink";
+            }
+            
+            setTimeout(() => {
+                reiniciar();
+            }, 1000);
+        }
+
+        function reiniciar() {
+            for (const btn of btn_correspondiente) {
+                btn.style.background = "white";
+            }
+            escogerPreguntaAleatoria();
+        }
+
+        function select_id(id) {
+            return document.getElementById(id);
+        }
+    </script>
+
+
+     
+</body>
